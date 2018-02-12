@@ -8,91 +8,107 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-//! # The Rust Standard Library
+//! # Rust標準ライブラリ
 //!
-//! The Rust Standard Library is the foundation of portable Rust software, a
-//! set of minimal and battle-tested shared abstractions for the [broader Rust
-//! ecosystem][crates.io]. It offers core types, like [`Vec<T>`] and
-//! [`Option<T>`], library-defined [operations on language
-//! primitives](#primitives), [standard macros](#macros), [I/O] and
-//! [multithreading], among [many other things][other].
+//! Rust標準ライブラリは移植性のあるRustソフトウェアの基礎にあたるライブラリであり、
+//! [より広いRustのエコシステム][crates.io]
+//! に対する最小限で実戦によるテストを経た共通の抽象化基盤の集まりです。
+//! Rust標準ライブラリは以下のものを提供します: [`Vec<T>`]や[`Option<T>`]
+//! のようなコア型、
+//! [言語プリミティブに対するライブラリ定義の操作](#primitives)、
+//! [標準マクロ](#macros)、[I/O]、[マルチスレッド処理][multithreading]、
+//! [その他たくさんのもの][other]。
 //!
-//! `std` is available to all Rust crates by default, just as if each one
-//! contained an `extern crate std;` import at the [crate root]. Therefore the
-//! standard library can be accessed in [`use`] statements through the path
-//! `std`, as in [`use std::env`], or in expressions through the absolute path
-//! `::std`, as in [`::std::env::args`].
+//! `std`は全てのRustクレイトで既定で利用可能で、
+//! [各クレイトのルート][crate root]に`extern crate std;`
+//! と書かれているかのように振舞います。
+//! つまり、標準ライブラリを使うには[`use`]文に`std`で始まるパスを指定
+//! (例: [`use std::env`])するか、式の中で`::std`で始まる絶対パスを指定
+//! (例: [`::std::env::args`])すればよいことになります。
 //!
-//! # How to read this documentation
+//! # このドキュメントの読み方
 //!
-//! If you already know the name of what you are looking for, the fastest way to
-//! find it is to use the <a href="#" onclick="focusSearchBar();">search
-//! bar</a> at the top of the page.
+//! もし探しているものの名前がわかっているなら、このページの一番上にある
+//! <a href="#" onclick="focusSearchBar();">検索バー</a>を使うのが速いでしょう。
 //!
-//! Otherwise, you may want to jump to one of these useful sections:
+//! 名前で探せない場合は、次に挙げる節のどれかに飛ぶのがよいでしょう。
 //!
-//! * [`std::*` modules](#modules)
-//! * [Primitive types](#primitives)
-//! * [Standard macros](#macros)
-//! * [The Rust Prelude](prelude/index.html)
+//! * [`std::*` モジュール](#modules)
+//! * [プリミティブ型](#primitives)
+//! * [標準マクロ](#macros)
+//! * [Rustプレリュード](prelude/index.html)
 //!
-//! If this is your first time, the documentation for the standard library is
-//! written to be casually perused. Clicking on interesting things should
-//! generally lead you to interesting places. Still, there are important bits
-//! you don't want to miss, so read on for a tour of the standard library and
-//! its documentation!
+//! もしここに来るのがはじめてでも、この標準ライブラリのドキュメントは
+//! 流し読みできるように書かれているので安心してください。
+//! 目立つ部分をクリックすれば興味深い内容に辿り着くことができるでしょう。
+//! ただ、他にいくつか知っておいたほうがよいことがあるので、
+//! 標準ライブラリとそのドキュメントのツアーに出掛けるために、
+//! ここをもう少し読んでおきましょう!
 //!
-//! Once you are familiar with the contents of the standard library you may
-//! begin to find the verbosity of the prose distracting. At this stage in your
-//! development you may want to press the **[-]** button near the top of the
-//! page to collapse it into a more skimmable view.
+//! 標準ライブラリの内容がわかってきたら、今度はここにあるような地の文が
+//! うっとうしく思えてくるかもしれません。
+//! その域に達したなら、このページの一番上にある **[-]** ボタンを押すことで
+//! パッと目を通すのに適した状態になります。
 //!
-//! While you are looking at that **[-]** button also notice the **[src]**
-//! button. Rust's API documentation comes with the source code and you are
-//! encouraged to read it. The standard library source is generally high
-//! quality and a peek behind the curtains is often enlightening.
+//! **[-]** の横にある **[src]** というボタンにも注目してください。
+//! RustのAPIドキュメントにはソースコードもついてきます。
+//! このソースコードを読むことは推奨されています。
+//! 標準ライブラリのソースは一般に高品質であり、
+//! 舞台の幕の裏側を覗くのはときに啓蒙的であるといえます。
 //!
-//! # What is in the standard library documentation?
+//! # 標準ライブラリのドキュメントには何が書かれているのか？
 //!
-//! First of all, The Rust Standard Library is divided into a number of focused
-//! modules, [all listed further down this page](#modules). These modules are
-//! the bedrock upon which all of Rust is forged, and they have mighty names
-//! like [`std::slice`] and [`std::cmp`]. Modules' documentation typically
-//! includes an overview of the module along with examples, and are a smart
-//! place to start familiarizing yourself with the library.
+//! まず最初の内容として、
+//! Rust標準ライブラリは多数の細かいモジュールに分割されており、
+//! [これらはこのページのもっと下のほうでリストアップされています](#modules)。
+//! これらのモジュールはRustの全てを築き上げるための基礎、岩盤にあたる部分で、
+//! [`std::slice`]&#32;(スライス) や [`std::cmp`]&#32;(比較)
+//! のようにいかにも重要そうな名前がつけられています。
+//! モジュールのドキュメントには、
+//! そのモジュールの概略が例とともに説明されていることが多いので、
+//! 標準ライブラリを知るとっかかりとしては最適でしょう。
 //!
-//! Second, implicit methods on [primitive types] are documented here. This can
-//! be a source of confusion for two reasons:
+//! 2番目の内容として、[プリミティブ型][primitive types]
+//! の暗黙のメソッドもこのドキュメントに記載されています。
+//! これは次の2つの理由から混乱のもとになっており、注意が必要です:
 //!
-//! 1. While primitives are implemented by the compiler, the standard library
-//!    implements methods directly on the primitive types (and it is the only
-//!    library that does so), which are [documented in the section on
-//!    primitives](#primitives).
-//! 2. The standard library exports many modules *with the same name as
-//!    primitive types*. These define additional items related to the primitive
-//!    type, but not the all-important methods.
+//! 1. プリミティブ型自体はコンパイラが実装しているのに対して、そのメソッドは
+//!    標準ライブラリが直接定義しています(これは標準ライブラリだけの特権です)。
+//!    これらのメソッドは[プリミティブ型の節に記述されています](#primitives)。
+//! 2. 標準ライブラリは *プリミティブ型と同じ名前の*
+//!    モジュールを多数エクスポートしています。
+//!    これらはそのプリミティブ型に関連する追加のアイテムを定義していますが、
+//!    プリミティブ型の上のメソッドほど重要ではありません。
 //!
-//! So for example there is a [page for the primitive type
-//! `i32`](primitive.i32.html) that lists all the methods that can be called on
-//! 32-bit integers (very useful), and there is a [page for the module
-//! `std::i32`](i32/index.html) that documents the constant values [`MIN`] and
-//! [`MAX`](i32/constant.MAX.html) (rarely useful).
+//! たとえば、[プリミティブ型 `i32` のためのページ](primitive.i32.html)
+//! には32-bit整数型に対して呼べる全てのメソッド(とても便利!)
+//! の一覧があります。
+//! 一方[モジュール `std::i32` のためのページ](i32/index.html)
+//! もあり、こちらは定数 [`MIN`] と [`MAX`](i32/constant.MAX.html)
+//! (使われることはあまり多くない) の説明が書かれています。
 //!
-//! Note the documentation for the primitives [`str`] and [`[T]`][slice] (also
-//! called 'slice'). Many method calls on [`String`] and [`Vec<T>`] are actually
-//! calls to methods on [`str`] and [`[T]`][slice] respectively, via [deref
-//! coercions][deref-coercions].
+//! プリミティブ型[`str`]と[`[T]`][slice] (「スライス」と読みます)
+//! のドキュメントにも注意してください。
+//! [`String`]と[`Vec<T>`]に対する多くのメソッド呼び出しは、
+//! 実際には[deref型強制][deref-coercions]経由で、
+//! [`str`]と[`[T]`][slice]のメソッドを呼んでいます。
 //!
-//! Third, the standard library defines [The Rust Prelude], a small collection
-//! of items - mostly traits - that are imported into every module of every
-//! crate. The traits in the prelude are pervasive, making the prelude
-//! documentation a good entry point to learning about the library.
+//! 3つ目の内容はプレリュードです。Rust標準ライブラリは
+//! [Rustプレリュード][The Rust Prelude]を定義しています。
+//! これは全てのクレイトの全てのモジュールにインポートされるアイテム
+//! (大半はトレイト)の集まりです。
+//! プレリュードに入っているトレイトは広く使われているものばかりですから、
+//! プレリュードのドキュメントは
+//! 標準ライブラリを知るための良いスタート地点といえます。
 //!
-//! And finally, the standard library exports a number of standard macros, and
-//! [lists them on this page](#macros) (technically, not all of the standard
-//! macros are defined by the standard library - some are defined by the
-//! compiler - but they are documented here the same). Like the prelude, the
-//! standard macros are imported by default into all crates.
+//! 最後に、標準ライブラリは多くの標準マクロをエクスポートしており、それらを
+//! [このページ](#macros)でリストしています
+//! (技術的には、
+//! 全ての標準マクロが標準ライブラリで定義されているわけではありません。
+//! 一部はコンパイラにより定義されていますが、ドキュメント上は区別されません)
+//! 。
+//! プレリュードと同様、
+//! 標準マクロは全てのクレイトに既定でインポートされています。
 //!
 //! # Contributing changes to the documentation
 //!
