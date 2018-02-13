@@ -2,6 +2,6 @@ language: rust
 rust:
   - nightly
 git:
-  submodule: false
+  submodules: false
 script:
   - ./gendoc.sh
