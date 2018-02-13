@@ -187,9 +187,9 @@ impl<T> [T] {
         core_slice::SliceExt::len(self)
     }
 
-    /// Returns `true` if the slice has a length of 0.
+    /// このスライスの長さが 0 のときに `true` を返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let a = [1, 2, 3];
@@ -201,9 +201,9 @@ impl<T> [T] {
         core_slice::SliceExt::is_empty(self)
     }
 
-    /// Returns the first element of the slice, or `None` if it is empty.
+    /// このスライスの最初の要素を返します。スライスが空なら `None` を返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let v = [10, 40, 30];
@@ -218,9 +218,10 @@ impl<T> [T] {
         core_slice::SliceExt::first(self)
     }
 
-    /// Returns a mutable pointer to the first element of the slice, or `None` if it is empty.
+    /// このスライスの最初の要素へのミュータブルなポインタを返します。スライスが空なら `None`
+    /// を返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let x = &mut [0, 1, 2];
@@ -236,9 +237,9 @@ impl<T> [T] {
         core_slice::SliceExt::first_mut(self)
     }
 
-    /// Returns the first and all the rest of the elements of the slice, or `None` if it is empty.
+    /// このスライスの最初の要素と、残りの部分を返します。スライスが空なら `None` を返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let x = &[0, 1, 2];
@@ -254,9 +255,9 @@ impl<T> [T] {
         core_slice::SliceExt::split_first(self)
     }
 
-    /// Returns the first and all the rest of the elements of the slice, or `None` if it is empty.
+    /// このスライスの最初の要素と、残りの部分を返します。スライスが空なら `None` を返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let x = &mut [0, 1, 2];
@@ -274,9 +275,9 @@ impl<T> [T] {
         core_slice::SliceExt::split_first_mut(self)
     }
 
-    /// Returns the last and all the rest of the elements of the slice, or `None` if it is empty.
+    /// このスライスの最後の要素と、残りの部分を返します。スライスが空なら `None` を返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let x = &[0, 1, 2];
@@ -293,9 +294,9 @@ impl<T> [T] {
 
     }
 
-    /// Returns the last and all the rest of the elements of the slice, or `None` if it is empty.
+    /// このスライスの最後の要素と、残りの部分を返します。スライスが空なら `None` を返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let x = &mut [0, 1, 2];
@@ -313,9 +314,9 @@ impl<T> [T] {
         core_slice::SliceExt::split_last_mut(self)
     }
 
-    /// Returns the last element of the slice, or `None` if it is empty.
+    /// このスライスの最後の要素を返します。スライスが空なら `None` を返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let v = [10, 40, 30];
@@ -330,9 +331,9 @@ impl<T> [T] {
         core_slice::SliceExt::last(self)
     }
 
-    /// Returns a mutable pointer to the last item in the slice.
+    /// このスライスの最後へのミュータブルなポインタを返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let x = &mut [0, 1, 2];
@@ -348,15 +349,14 @@ impl<T> [T] {
         core_slice::SliceExt::last_mut(self)
     }
 
-    /// Returns a reference to an element or subslice depending on the type of
-    /// index.
+    /// インデックスの型に応じて、要素への参照または部分スライスを返します。
     ///
-    /// - If given a position, returns a reference to the element at that
-    ///   position or `None` if out of bounds.
-    /// - If given a range, returns the subslice corresponding to that range,
-    ///   or `None` if out of bounds.
+    /// - 位置が与えられた場合は、その位置の要素への参照を返します。
+    ///   境界外の場合は `None` を返します。
+    /// - 範囲を与えられた場合は、その範囲に対応する部分スライスを返します。
+    ///   境界外の場合は `None` を返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let v = [10, 40, 30];
@@ -373,12 +373,13 @@ impl<T> [T] {
         core_slice::SliceExt::get(self, index)
     }
 
-    /// Returns a mutable reference to an element or subslice depending on the
-    /// type of index (see [`get`]) or `None` if the index is out of bounds.
+    /// インデックスの型に応じて ([`get`]を参照)、
+    /// 要素へのミュータブル参照またはミュータブルな部分スライスを返します。
+    /// 境界外の場合は `None` を返します。
     ///
     /// [`get`]: #method.get
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let x = &mut [0, 1, 2];
@@ -396,15 +397,15 @@ impl<T> [T] {
         core_slice::SliceExt::get_mut(self, index)
     }
 
-    /// Returns a reference to an element or subslice, without doing bounds
-    /// checking.
+    /// インデックスの型に応じて、要素への参照または部分スライスを返します。
+    /// 境界チェックを行いません。
     ///
-    /// This is generally not recommended, use with caution! For a safe
-    /// alternative see [`get`].
+    /// 一般にこのメソッドの使用は推奨されていません。よく注意して使うように!
+    /// 安全な方法については [`get`] を参照してください。
     ///
     /// [`get`]: #method.get
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let x = &[1, 2, 4];
@@ -421,15 +422,16 @@ impl<T> [T] {
         core_slice::SliceExt::get_unchecked(self, index)
     }
 
-    /// Returns a mutable reference to an element or subslice, without doing
-    /// bounds checking.
+    /// インデックスの型に応じて、
+    /// 要素へのミュータブル参照または部分スライスを返します。
+    /// 境界チェックを行いません。
     ///
-    /// This is generally not recommended, use with caution! For a safe
-    /// alternative see [`get_mut`].
+    /// 一般にこのメソッドの使用は推奨されていません。よく注意して使うように!
+    /// 安全な方法については [`get_mut`] を参照してください。
     ///
     /// [`get_mut`]: #method.get_mut
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let x = &mut [1, 2, 4];
@@ -448,15 +450,17 @@ impl<T> [T] {
         core_slice::SliceExt::get_unchecked_mut(self, index)
     }
 
-    /// Returns a raw pointer to the slice's buffer.
+    /// このスライスのバッファへの生ポインタを返します。
     ///
-    /// The caller must ensure that the slice outlives the pointer this
-    /// function returns, or else it will end up pointing to garbage.
+    /// 呼び出し元は、 `as_ptr` が返すポインタよりも、
+    /// このスライスのほうが長生きするように気をつける必要があります。
+    /// さもなくば、
+    /// そのポインタは結局ゴミを指し示しているだけということになるでしょう。
     ///
-    /// Modifying the container referenced by this slice may cause its buffer
-    /// to be reallocated, which would also make any pointers to it invalid.
+    /// このスライスが参照しているコンテナを変更し、
+    /// バッファの再割り当てが起こることでポインタが無効になる場合もあります。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let x = &[1, 2, 4];
@@ -474,15 +478,19 @@ impl<T> [T] {
         core_slice::SliceExt::as_ptr(self)
     }
 
-    /// Returns an unsafe mutable pointer to the slice's buffer.
-    ///
-    /// The caller must ensure that the slice outlives the pointer this
-    /// function returns, or else it will end up pointing to garbage.
-    ///
-    /// Modifying the container referenced by this slice may cause its buffer
-    /// to be reallocated, which would also make any pointers to it invalid.
-    ///
     /// # Examples
+    ///
+    /// このスライスのバッファへのunsafeなミュータブルなポインタを返します。
+    ///
+    /// 呼び出し元は、 `as_mut_ptr` が返すポインタよりも、
+    /// このスライスのほうが長生きするように気をつける必要があります。
+    /// さもなくば、
+    /// そのポインタは結局ゴミを指し示しているだけということになるでしょう。
+    ///
+    /// このスライスが参照しているコンテナを変更し、
+    /// バッファの再割り当てが起こることでポインタが無効になる場合もあります。
+    ///
+    /// # 例
     ///
     /// ```
     /// let x = &mut [1, 2, 4];
@@ -501,18 +509,18 @@ impl<T> [T] {
         core_slice::SliceExt::as_mut_ptr(self)
     }
 
-    /// Swaps two elements in the slice.
+    /// スライス内の2つの要素を入れ替えます。
     ///
-    /// # Arguments
+    /// # 引数
     ///
-    /// * a - The index of the first element
-    /// * b - The index of the second element
+    /// * a - 一つ目の要素のインデックス
+    /// * b - 二つ目の要素のインデックス
     ///
-    /// # Panics
+    /// # パニック
     ///
-    /// Panics if `a` or `b` are out of bounds.
+    /// `a` か `b` が境界外のときパニックになります。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let mut v = ["a", "b", "c", "d"];
@@ -525,9 +533,9 @@ impl<T> [T] {
         core_slice::SliceExt::swap(self, a, b)
     }
 
-    /// Reverses the order of elements in the slice, in place.
+    /// スライス内の要素の順番を、インプレースで逆順にします。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let mut v = [1, 2, 3];
@@ -540,9 +548,9 @@ impl<T> [T] {
         core_slice::SliceExt::reverse(self)
     }
 
-    /// Returns an iterator over the slice.
+    /// スライス上のイテレータを返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let x = &[1, 2, 4];
@@ -559,9 +567,9 @@ impl<T> [T] {
         core_slice::SliceExt::iter(self)
     }
 
-    /// Returns an iterator that allows modifying each value.
+    /// スライス上の値を変更できるイテレータを返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let x = &mut [1, 2, 4];
