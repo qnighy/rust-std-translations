@@ -75,7 +75,7 @@
 //! 1. プリミティブ型自体はコンパイラが実装しているのに対して、そのメソッドは
 //!    標準ライブラリが直接定義しています(これは標準ライブラリだけの特権です)。
 //!    これらのメソッドは[プリミティブ型の節に記述されています](#primitives)。
-//! 2. 標準ライブラリは *プリミティブ型と同じ名前の*
+//! 2. 標準ライブラリは **プリミティブ型と同じ名前の**
 //!    モジュールを多数エクスポートしています。
 //!    これらはそのプリミティブ型に関連する追加のアイテムを定義していますが、
 //!    プリミティブ型の上のメソッドほど重要ではありません。
@@ -110,73 +110,85 @@
 //! プレリュードと同様、
 //! 標準マクロは全てのクレイトに既定でインポートされています。
 //!
-//! # Contributing changes to the documentation
+//! # ドキュメントの改善に貢献するには
 //!
-//! Check out the rust contribution guidelines [here](
-//! https://github.com/rust-lang/rust/blob/master/CONTRIBUTING.md).
-//! The source for this documentation can be found on [Github](https://github.com/rust-lang).
-//! To contribute changes, make sure you read the guidelines first, then submit
-//! pull-requests for your suggested changes.
+//! 貢献ガイドが[ここ](
+//! https://github.com/rust-lang/rust/blob/master/CONTRIBUTING.md)
+//! にあるので、まずこれを読んでください。
+//! このドキュメントのソースは[Github](https://github.com/rust-lang)にあります。
+//! ドキュメントの変更を提案する場合、まず上記のガイドラインを読んだ上で、
+//! 提案する変更をプルリクエストとして提出してください。
 //!
-//! Contributions are appreciated! If you see a part of the docs that can be
-//! improved, submit a PR, or chat with us first on irc.mozilla.org #rust-docs.
+//! 皆さんの貢献を歓迎します!
+//! ドキュメントのどこでも改善できそうな箇所があれば、
+//! ぜひプルリクエストを提出するか、
+//! irc.mozilla.org #rust-docs で私たちに話しかけてください。
 //!
-//! # A Tour of The Rust Standard Library
+//! # Rust標準ライブラリのツアー
 //!
-//! The rest of this crate documentation is dedicated to pointing out notable
-//! features of The Rust Standard Library.
+//! このクレイトのドキュメントの残りの部分では、
+//! Rust標準ライブラリの特筆すべき機能を説明していきます。
 //!
-//! ## Containers and collections
+//! ## コンテナとコレクション
 //!
-//! The [`option`] and [`result`] modules define optional and error-handling
-//! types, [`Option<T>`] and [`Result<T, E>`]. The [`iter`] module defines
-//! Rust's iterator trait, [`Iterator`], which works with the [`for`] loop to
-//! access collections.
+//! [`option`] モジュールと [`result`] モジュールはそれぞれ、オプション型
+//! [`Option<T>`] とエラー処理のための型 [`Result<T, E>`] を定義しています。
+//! [`iter`] モジュールはRustのイテレータトレイトを定義しています。
+//! イテレータと [`for`]
+//! ループによってコレクションにアクセスすることができます。
 //!
-//! The standard library exposes three common ways to deal with contiguous
-//! regions of memory:
+//! Rust標準ライブラリは、メモリ上の連続した領域にアクセスする共通の方法を
+//! 3つ提供しています:
 //!
-//! * [`Vec<T>`] - A heap-allocated *vector* that is resizable at runtime.
-//! * [`[T; n]`][array] - An inline *array* with a fixed size at compile time.
-//! * [`[T]`][slice] - A dynamically sized *slice* into any other kind of contiguous
-//!   storage, whether heap-allocated or not.
+//! * [`Vec<T>`] - ヒープに確保される **ベクタ** で、実行時に長さを変えられる。
+//! * [`[T; n]`][array] - その場で確保される **配列**
+//!   で、長さはコンパイル時に決められる。
+//! * [`[T]`][slice] - 他の方法で確保された連続領域(ヒープか否かにかかわらず)
+//!   にアクセスするための **スライス** で、長さは動的に決まる。
 //!
-//! Slices can only be handled through some kind of *pointer*, and as such come
-//! in many flavors such as:
+//! スライスは **ポインタ** の類を経由してのみ扱うことが可能で、
+//! ポインタの種類によって以下のような風味の違いがあります:
 //!
-//! * `&[T]` - *shared slice*
-//! * `&mut [T]` - *mutable slice*
-//! * [`Box<[T]>`][owned slice] - *owned slice*
+//! * `&[T]` - **共有スライス**
+//! * `&mut [T]` - **ミュータブルスライス**
+//! * [`Box<[T]>`][owned slice] - **所有されたスライス**
 //!
-//! [`str`], a UTF-8 string slice, is a primitive type, and the standard library
-//! defines many methods for it. Rust [`str`]s are typically accessed as
-//! immutable references: `&str`. Use the owned [`String`] for building and
-//! mutating strings.
+//! [`str`] はプリミティブ型のひとつで、UTF-8文字列のスライスを表します。
+//! 標準ライブラリは [`str`] に多くのメソッドを定義しています。
+//! Rustの [`str`] は通常、イミュータブル参照を通じて
+//! `&str` のようにアクセスします。
+//! 文字列を組み立てたり書き換えたりするには、所有されている文字列型である
+//! [`String`] を使ってください。
 //!
-//! For converting to strings use the [`format!`] macro, and for converting from
-//! strings use the [`FromStr`] trait.
+//! 文字列への変換には [`format!`] マクロを、文字列からの変換には [`FromStr`]
+//! トレイトを使ってください。
 //!
-//! Data may be shared by placing it in a reference-counted box or the [`Rc`]
-//! type, and if further contained in a [`Cell`] or [`RefCell`], may be mutated
-//! as well as shared. Likewise, in a concurrent setting it is common to pair an
-//! atomically-reference-counted box, [`Arc`], with a [`Mutex`] to get the same
-//! effect.
+//! 参照カウントされたボックス型 [`Rc`]
+//! を使うことでもデータを共有することができます。
+//! さらにその中身が [`Cell`] や [`RefCell`] で包まれている場合、
+//! データを共有しつつ書き換えることができます。
+//! 同様のことをマルチスレッド環境で行うには、
+//! アトミック参照カウントされたボックス型 [`Arc`]
+//! と [`Mutex`] 型を組み合わせることで同様の効果を得ることができます。
 //!
-//! The [`collections`] module defines maps, sets, linked lists and other
-//! typical collection types, including the common [`HashMap<K, V>`].
 //!
-//! ## Platform abstractions and I/O
+//! [`collections`] モジュールはマップ、集合、
+//! 連結リストやその他の典型的なコレクション型を定義しています。
+//! [`HashMap<K, V>`] もこれに含まれます。
 //!
-//! Besides basic data types, the standard library is largely concerned with
-//! abstracting over differences in common platforms, most notably Windows and
-//! Unix derivatives.
+//! ## プラットフォーム抽象化とI/O
 //!
-//! Common types of I/O, including [files], [TCP], [UDP], are defined in the
-//! [`io`], [`fs`], and [`net`] modules.
+//! Rust標準ライブラリは基本的なデータ型を提供するだけではなく、
+//! 一般的なプラットフォーム間の差異、
+//! 特にWindowsとUnix系OSの違いを吸収・抽象化することにも気を遣っています。
 //!
-//! The [`thread`] module contains Rust's threading abstractions. [`sync`]
-//! contains further primitive shared memory types, including [`atomic`] and
-//! [`mpsc`], which contains the channel types for message passing.
+//! [ファイル][files], [TCP], [UDP] などI/O関係の一般的な型は
+//! [`io`]、[`fs`]、[`net`] モジュールで定義されています。
+//!
+//! [`thread`] モジュールではRustによるスレッドの抽象化が提供されています。
+//! さらに、 [`sync`] には基本的な共有メモリ型の定義があり、
+//! [`atomic`] や [`mpsc`] のようなモジュールが含まれています。
+//! 特に [`mpsc`] にはメッセージパッシングのためのチャネル型が含まれています。
 //!
 //! [I/O]: io/index.html
 //! [`MIN`]: i32/constant.MIN.html
