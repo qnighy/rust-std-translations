@@ -2340,6 +2340,14 @@
 <span id="2284">2284</span>
 <span id="2285">2285</span>
 <span id="2286">2286</span>
+<span id="2287">2287</span>
+<span id="2288">2288</span>
+<span id="2289">2289</span>
+<span id="2290">2290</span>
+<span id="2291">2291</span>
+<span id="2292">2292</span>
+<span id="2293">2293</span>
+<span id="2294">2294</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright 2012-2015 The Rust Project Developers. See the COPYRIGHT</span>
 <span class="comment">// file at the top-level directory of this distribution and at</span>
@@ -2530,9 +2538,9 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">len</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns `true` if the slice has a length of 0.</span>
+    <span class="doccomment">/// このスライスの長さが 0 のときに `true` を返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let a = [1, 2, 3];</span>
@@ -2544,9 +2552,9 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">is_empty</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns the first element of the slice, or `None` if it is empty.</span>
+    <span class="doccomment">/// このスライスの最初の要素を返します。スライスが空なら `None` を返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let v = [10, 40, 30];</span>
@@ -2561,9 +2569,10 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">first</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns a mutable pointer to the first element of the slice, or `None` if it is empty.</span>
+    <span class="doccomment">/// このスライスの最初の要素へのミュータブルなポインタを返します。スライスが空なら `None`</span>
+    <span class="doccomment">/// を返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;mut [0, 1, 2];</span>
@@ -2579,9 +2588,9 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">first_mut</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns the first and all the rest of the elements of the slice, or `None` if it is empty.</span>
+    <span class="doccomment">/// このスライスの最初の要素と、残りの部分を返します。スライスが空なら `None` を返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;[0, 1, 2];</span>
@@ -2597,9 +2606,9 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">split_first</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns the first and all the rest of the elements of the slice, or `None` if it is empty.</span>
+    <span class="doccomment">/// このスライスの最初の要素と、残りの部分を返します。スライスが空なら `None` を返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;mut [0, 1, 2];</span>
@@ -2617,9 +2626,9 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">split_first_mut</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns the last and all the rest of the elements of the slice, or `None` if it is empty.</span>
+    <span class="doccomment">/// このスライスの最後の要素と、残りの部分を返します。スライスが空なら `None` を返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;[0, 1, 2];</span>
@@ -2636,9 +2645,9 @@
 
     }
 
-    <span class="doccomment">/// Returns the last and all the rest of the elements of the slice, or `None` if it is empty.</span>
+    <span class="doccomment">/// このスライスの最後の要素と、残りの部分を返します。スライスが空なら `None` を返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;mut [0, 1, 2];</span>
@@ -2656,9 +2665,9 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">split_last_mut</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns the last element of the slice, or `None` if it is empty.</span>
+    <span class="doccomment">/// このスライスの最後の要素を返します。スライスが空なら `None` を返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let v = [10, 40, 30];</span>
@@ -2673,9 +2682,9 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">last</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns a mutable pointer to the last item in the slice.</span>
+    <span class="doccomment">/// このスライスの最後へのミュータブルなポインタを返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;mut [0, 1, 2];</span>
@@ -2691,15 +2700,14 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">last_mut</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns a reference to an element or subslice depending on the type of</span>
-    <span class="doccomment">/// index.</span>
+    <span class="doccomment">/// インデックスの型に応じて、要素への参照または部分スライスを返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// - If given a position, returns a reference to the element at that</span>
-    <span class="doccomment">///   position or `None` if out of bounds.</span>
-    <span class="doccomment">/// - If given a range, returns the subslice corresponding to that range,</span>
-    <span class="doccomment">///   or `None` if out of bounds.</span>
+    <span class="doccomment">/// - 位置が与えられた場合は、その位置の要素への参照を返します。</span>
+    <span class="doccomment">///   境界外の場合は `None` を返します。</span>
+    <span class="doccomment">/// - 範囲を与えられた場合は、その範囲に対応する部分スライスを返します。</span>
+    <span class="doccomment">///   境界外の場合は `None` を返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let v = [10, 40, 30];</span>
@@ -2716,12 +2724,13 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">get</span>(<span class="self">self</span>, <span class="ident">index</span>)
     }
 
-    <span class="doccomment">/// Returns a mutable reference to an element or subslice depending on the</span>
-    <span class="doccomment">/// type of index (see [`get`]) or `None` if the index is out of bounds.</span>
+    <span class="doccomment">/// インデックスの型に応じて ([`get`]を参照)、</span>
+    <span class="doccomment">/// 要素へのミュータブル参照またはミュータブルな部分スライスを返します。</span>
+    <span class="doccomment">/// 境界外の場合は `None` を返します。</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`get`]: #method.get</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;mut [0, 1, 2];</span>
@@ -2739,15 +2748,15 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">get_mut</span>(<span class="self">self</span>, <span class="ident">index</span>)
     }
 
-    <span class="doccomment">/// Returns a reference to an element or subslice, without doing bounds</span>
-    <span class="doccomment">/// checking.</span>
+    <span class="doccomment">/// インデックスの型に応じて、要素への参照または部分スライスを返します。</span>
+    <span class="doccomment">/// 境界チェックを行いません。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is generally not recommended, use with caution! For a safe</span>
-    <span class="doccomment">/// alternative see [`get`].</span>
+    <span class="doccomment">/// 一般にこのメソッドの使用は推奨されていません。よく注意して使うように!</span>
+    <span class="doccomment">/// 安全な方法については [`get`] を参照してください。</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`get`]: #method.get</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;[1, 2, 4];</span>
@@ -2764,15 +2773,16 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">get_unchecked</span>(<span class="self">self</span>, <span class="ident">index</span>)
     }
 
-    <span class="doccomment">/// Returns a mutable reference to an element or subslice, without doing</span>
-    <span class="doccomment">/// bounds checking.</span>
+    <span class="doccomment">/// インデックスの型に応じて、</span>
+    <span class="doccomment">/// 要素へのミュータブル参照または部分スライスを返します。</span>
+    <span class="doccomment">/// 境界チェックを行いません。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// This is generally not recommended, use with caution! For a safe</span>
-    <span class="doccomment">/// alternative see [`get_mut`].</span>
+    <span class="doccomment">/// 一般にこのメソッドの使用は推奨されていません。よく注意して使うように!</span>
+    <span class="doccomment">/// 安全な方法については [`get_mut`] を参照してください。</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`get_mut`]: #method.get_mut</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;mut [1, 2, 4];</span>
@@ -2791,15 +2801,17 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">get_unchecked_mut</span>(<span class="self">self</span>, <span class="ident">index</span>)
     }
 
-    <span class="doccomment">/// Returns a raw pointer to the slice&#39;s buffer.</span>
+    <span class="doccomment">/// このスライスのバッファへの生ポインタを返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The caller must ensure that the slice outlives the pointer this</span>
-    <span class="doccomment">/// function returns, or else it will end up pointing to garbage.</span>
+    <span class="doccomment">/// 呼び出し元は、 `as_ptr` が返すポインタよりも、</span>
+    <span class="doccomment">/// このスライスのほうが長生きするように気をつける必要があります。</span>
+    <span class="doccomment">/// さもなくば、</span>
+    <span class="doccomment">/// そのポインタは結局ゴミを指し示しているだけということになるでしょう。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Modifying the container referenced by this slice may cause its buffer</span>
-    <span class="doccomment">/// to be reallocated, which would also make any pointers to it invalid.</span>
+    <span class="doccomment">/// このスライスが参照しているコンテナを変更し、</span>
+    <span class="doccomment">/// バッファの再割り当てが起こることでポインタが無効になる場合もあります。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;[1, 2, 4];</span>
@@ -2817,15 +2829,19 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">as_ptr</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns an unsafe mutable pointer to the slice&#39;s buffer.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The caller must ensure that the slice outlives the pointer this</span>
-    <span class="doccomment">/// function returns, or else it will end up pointing to garbage.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Modifying the container referenced by this slice may cause its buffer</span>
-    <span class="doccomment">/// to be reallocated, which would also make any pointers to it invalid.</span>
-    <span class="doccomment">///</span>
     <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// このスライスのバッファへのunsafeなミュータブルなポインタを返します。</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// 呼び出し元は、 `as_mut_ptr` が返すポインタよりも、</span>
+    <span class="doccomment">/// このスライスのほうが長生きするように気をつける必要があります。</span>
+    <span class="doccomment">/// さもなくば、</span>
+    <span class="doccomment">/// そのポインタは結局ゴミを指し示しているだけということになるでしょう。</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// このスライスが参照しているコンテナを変更し、</span>
+    <span class="doccomment">/// バッファの再割り当てが起こることでポインタが無効になる場合もあります。</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;mut [1, 2, 4];</span>
@@ -2844,18 +2860,18 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">as_mut_ptr</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Swaps two elements in the slice.</span>
+    <span class="doccomment">/// スライス内の2つの要素を入れ替えます。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Arguments</span>
+    <span class="doccomment">/// # 引数</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// * a - The index of the first element</span>
-    <span class="doccomment">/// * b - The index of the second element</span>
+    <span class="doccomment">/// * a - 一つ目の要素のインデックス</span>
+    <span class="doccomment">/// * b - 二つ目の要素のインデックス</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Panics</span>
+    <span class="doccomment">/// # パニック</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Panics if `a` or `b` are out of bounds.</span>
+    <span class="doccomment">/// `a` か `b` が境界外のときパニックになります。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let mut v = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;];</span>
@@ -2868,9 +2884,9 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">swap</span>(<span class="self">self</span>, <span class="ident">a</span>, <span class="ident">b</span>)
     }
 
-    <span class="doccomment">/// Reverses the order of elements in the slice, in place.</span>
+    <span class="doccomment">/// スライス内の要素の順番を、インプレースで逆順にします。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let mut v = [1, 2, 3];</span>
@@ -2883,9 +2899,9 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">reverse</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over the slice.</span>
+    <span class="doccomment">/// スライス上のイテレータを返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;[1, 2, 4];</span>
@@ -2902,9 +2918,9 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">iter</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator that allows modifying each value.</span>
+    <span class="doccomment">/// スライス上の値を変更できるイテレータを返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let x = &amp;mut [1, 2, 4];</span>
