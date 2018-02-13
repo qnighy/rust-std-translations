@@ -43,4 +43,8 @@ shared memory = 共有メモリ
 channel = チャネル
 message passing = メッセージパッシング
 I/O = I/O
-
+slice = スライスする
+coercion = 型強制
+coerce = 型強制
+coerce = 型強制する
+block of memory = メモリブロック

@@ -501,23 +501,22 @@ mod prim_array { }
 
 #[doc(primitive = "slice")]
 //
-/// A dynamically-sized view into a contiguous sequence, `[T]`.
+/// メモリ上の連続した列に対する、長さが動的に決まるビュー型 `[T]`。
 ///
-/// Slices are a view into a block of memory represented as a pointer and a
-/// length.
+/// スライスは、ポインタと長さという形で表現される、
+/// メモリブロックへのビューです。
 ///
 /// ```
-/// // slicing a Vec
+/// // Vecをスライスする
 /// let vec = vec![1, 2, 3];
 /// let int_slice = &vec[..];
-/// // coercing an array to a slice
+/// // 配列をスライスに型強制する
 /// let str_slice: &[&str] = &["one", "two", "three"];
 /// ```
 ///
-/// Slices are either mutable or shared. The shared slice type is `&[T]`,
-/// while the mutable slice type is `&mut [T]`, where `T` represents the element
-/// type. For example, you can mutate the block of memory that a mutable slice
-/// points to:
+/// スライスはミュータブルか共有のいずれかです。共有スライス型は `&[T]`で、
+/// ミュータブルスライス型は `&mut [T]` です。ここで `T` は要素型です。
+/// 例えば、ミュータブルスライスが指すメモリブロックを書き換えることができます:
 ///
 /// ```
 /// let x = &mut [1, 2, 3];
@@ -525,7 +524,7 @@ mod prim_array { }
 /// assert_eq!(x, &[1, 7, 3]);
 /// ```
 ///
-/// *[See also the `std::slice` module](slice/index.html).*
+/// **[`std::slice` モジュールも参照](slice/index.html)。**
 ///
 #[stable(feature = "rust1", since = "1.0.0")]
 mod prim_slice { }

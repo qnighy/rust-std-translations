@@ -173,9 +173,9 @@ mod hack {
 #[lang = "slice"]
 #[cfg(not(test))]
 impl<T> [T] {
-    /// Returns the number of elements in the slice.
+    /// このスライスの要素数を返します。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let a = [1, 2, 3];
