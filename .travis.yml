@@ -1,5 +1,7 @@
 language: rust
 rust:
   - nightly
+git:
+  submodule: false
 script:
   - ./gendoc.sh
