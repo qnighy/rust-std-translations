@@ -584,15 +584,15 @@ impl<T> [T] {
         core_slice::SliceExt::iter_mut(self)
     }
 
-    /// Returns an iterator over all contiguous windows of length
-    /// `size`. The windows overlap. If the slice is shorter than
-    /// `size`, the iterator returns no values.
+    /// 長さが `size` の連続したウィンドウ全てを列挙するイテレータを返します。
+    /// 互いに重複するウィンドウも列挙されます。
+    /// スライスが `size` より短い場合は、このイテレータは0個の値を返します。
     ///
-    /// # Panics
+    /// # パニック
     ///
-    /// Panics if `size` is 0.
+    /// `size` が 0 のときパニックします。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let slice = ['r', 'u', 's', 't'];
@@ -603,7 +603,7 @@ impl<T> [T] {
     /// assert!(iter.next().is_none());
     /// ```
     ///
-    /// If the slice is shorter than `size`:
+    /// スライスが `size` より短い場合:
     ///
     /// ```
     /// let slice = ['f', 'o', 'o'];
@@ -616,19 +616,20 @@ impl<T> [T] {
         core_slice::SliceExt::windows(self, size)
     }
 
-    /// Returns an iterator over `chunk_size` elements of the slice at a
-    /// time. The chunks are slices and do not overlap. If `chunk_size` does
-    /// not divide the length of the slice, then the last chunk will
-    /// not have length `chunk_size`.
+    /// このスライスを `chunk_size` 要素ごとのチャンクに区切り、
+    /// それらを列挙するイテレータを返します。
+    /// チャンク同士は重複しません。
+    /// `chunk_size` がスライスの長さを割り切らない場合は、
+    /// 最後に返されるチャンクの長さは `chunk_size` 未満になります。
     ///
-    /// See [`exact_chunks`] for a variant of this iterator that returns chunks
-    /// of always exactly `chunk_size` elements.
+    /// 常に `chunk_size` 個からなるチャンクのみを返す亜種については、
+    /// [`exact_chunks`] を参照してください。
     ///
-    /// # Panics
+    /// # パニック
     ///
-    /// Panics if `chunk_size` is 0.
+    /// `chunk_size` が 0 のときパニックします。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let slice = ['l', 'o', 'r', 'e', 'm'];
@@ -646,20 +647,21 @@ impl<T> [T] {
         core_slice::SliceExt::chunks(self, chunk_size)
     }
 
-    /// Returns an iterator over `chunk_size` elements of the slice at a
-    /// time. The chunks are slices and do not overlap. If `chunk_size` does
-    /// not divide the length of the slice, then the last up to `chunk_size-1`
-    /// elements will be omitted.
+    /// このスライスを `chunk_size` 要素ごとのチャンクに区切り、
+    /// それらを列挙するイテレータを返します。
+    /// チャンク同士は重複しません。
+    /// `chunk_size` がスライスの長さを割り切らない場合は、
+    /// スライス末尾の最大 `chunk_size-1` 個の要素が無視されます。
     ///
-    /// Due to each chunk having exactly `chunk_size` elements, the compiler
-    /// can often optimize the resulting code better than in the case of
-    /// [`chunks`].
+    /// 全てのチャンクがちょうど `chunk_size` 個の要素を持つため、
+    /// このメソッドは [`chunks`]
+    /// よりも効率的なコードにコンパイルされる場合があります。
     ///
-    /// # Panics
+    /// # パニック
     ///
-    /// Panics if `chunk_size` is 0.
+    /// `chunk_size` が 0 のときパニックします。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// #![feature(exact_chunks)]
@@ -678,19 +680,21 @@ impl<T> [T] {
         core_slice::SliceExt::exact_chunks(self, chunk_size)
     }
 
-    /// Returns an iterator over `chunk_size` elements of the slice at a time.
-    /// The chunks are mutable slices, and do not overlap. If `chunk_size` does
-    /// not divide the length of the slice, then the last chunk will not
-    /// have length `chunk_size`.
+    /// このスライスを `chunk_size` 要素ごとのチャンクに区切り、
+    /// それらを列挙するイテレータを返します。
+    /// チャンク同士は重複しません。
+    /// このメソッドが返すチャンクはミュータブルなスライスです。
+    /// `chunk_size` がスライスの長さを割り切らない場合は、
+    /// 最後に返されるチャンクの長さは `chunk_size` 未満になります。
     ///
-    /// See [`exact_chunks_mut`] for a variant of this iterator that returns chunks
-    /// of always exactly `chunk_size` elements.
+    /// 常に `chunk_size` 個からなるチャンクのみを返す亜種については、
+    /// [`exact_chunks_mut`] を参照してください。
     ///
-    /// # Panics
+    /// # パニック
     ///
-    /// Panics if `chunk_size` is 0.
+    /// `chunk_size` が 0 のときパニックします。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let v = &mut [0, 0, 0, 0, 0];
@@ -712,21 +716,22 @@ impl<T> [T] {
         core_slice::SliceExt::chunks_mut(self, chunk_size)
     }
 
-    /// Returns an iterator over `chunk_size` elements of the slice at a time.
-    /// The chunks are mutable slices, and do not overlap. If `chunk_size` does
-    /// not divide the length of the slice, then the last up to `chunk_size-1`
-    /// elements will be omitted.
+    /// このスライスを `chunk_size` 要素ごとのチャンクに区切り、
+    /// それらを列挙するイテレータを返します。
+    /// チャンク同士は重複しません。
+    /// このメソッドが返すチャンクはミュータブルなスライスです。
+    /// `chunk_size` がスライスの長さを割り切らない場合は、
+    /// スライス末尾の最大 `chunk_size-1` 個の要素が無視されます。
     ///
+    /// 全てのチャンクがちょうど `chunk_size` 個の要素を持つため、
+    /// このメソッドは [`chunks`]
+    /// よりも効率的なコードにコンパイルされる場合があります。
     ///
-    /// Due to each chunk having exactly `chunk_size` elements, the compiler
-    /// can often optimize the resulting code better than in the case of
-    /// [`chunks_mut`].
+    /// # パニック
     ///
-    /// # Panics
+    /// `chunk_size` が 0 のときパニックします。
     ///
-    /// Panics if `chunk_size` is 0.
-    ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// #![feature(exact_chunks)]

@@ -66,3 +66,4 @@ unsafe = unsafeな
 panic = パニック
 panic = パニックになる
 in place = インプレースで
+window = ウィンドウ (sliceの連続領域)
