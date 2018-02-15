@@ -3010,6 +3010,12 @@
 <span id="2954">2954</span>
 <span id="2955">2955</span>
 <span id="2956">2956</span>
+<span id="2957">2957</span>
+<span id="2958">2958</span>
+<span id="2959">2959</span>
+<span id="2960">2960</span>
+<span id="2961">2961</span>
+<span id="2962">2962</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright 2012-2017 The Rust Project Developers. See the COPYRIGHT</span>
 <span class="comment">// file at the top-level directory of this distribution and at</span>
@@ -4259,15 +4265,18 @@
             {
                 <span class="comment">// The addition might panic on overflow</span>
                 <span class="comment">// Use the len of the slice to hint optimizer to remove result index bounds check.</span>
-                <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="macro">make_slice</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">ptr</span>, <span class="self">self</span>.<span class="ident">end</span>).<span class="ident">len</span>();
+                <span class="kw">let</span> <span class="ident">_n</span> <span class="op">=</span> <span class="macro">make_slice</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">ptr</span>, <span class="self">self</span>.<span class="ident">end</span>).<span class="ident">len</span>();
                 <span class="self">self</span>.<span class="ident">try_fold</span>(<span class="number">0</span>, <span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>, <span class="ident">x</span><span class="op">|</span> {
                     <span class="kw">if</span> <span class="ident">predicate</span>(<span class="ident">x</span>) { <span class="prelude-val">Err</span>(<span class="ident">i</span>) }
                     <span class="kw">else</span> { <span class="prelude-val">Ok</span>(<span class="ident">i</span> <span class="op">+</span> <span class="number">1</span>) }
                 }).<span class="ident">err</span>()
-                    .<span class="ident">map</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> {
-                        <span class="kw">unsafe</span> { <span class="ident">assume</span>(<span class="ident">i</span> <span class="op">&lt;</span> <span class="ident">n</span>) };
-                        <span class="ident">i</span>
-                    })
+                    <span class="comment">// // FIXME(#48116/#45964):</span>
+                    <span class="comment">// // This assume() causes misoptimization on LLVM 6.</span>
+                    <span class="comment">// // Commented out until it is fixed again.</span>
+                    <span class="comment">// .map(|i| {</span>
+                    <span class="comment">//     unsafe { assume(i &lt; n) };</span>
+                    <span class="comment">//     i</span>
+                    <span class="comment">// })</span>
             }
 
             <span class="attribute">#[<span class="ident">inline</span>]</span>
@@ -4284,10 +4293,13 @@
                     <span class="kw">if</span> <span class="ident">predicate</span>(<span class="ident">x</span>) { <span class="prelude-val">Err</span>(<span class="ident">i</span>) }
                     <span class="kw">else</span> { <span class="prelude-val">Ok</span>(<span class="ident">i</span>) }
                 }).<span class="ident">err</span>()
-                    .<span class="ident">map</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> {
-                        <span class="kw">unsafe</span> { <span class="ident">assume</span>(<span class="ident">i</span> <span class="op">&lt;</span> <span class="ident">n</span>) };
-                        <span class="ident">i</span>
-                    })
+                    <span class="comment">// // FIXME(#48116/#45964):</span>
+                    <span class="comment">// // This assume() causes misoptimization on LLVM 6.</span>
+                    <span class="comment">// // Commented out until it is fixed again.</span>
+                    <span class="comment">// .map(|i| {</span>
+                    <span class="comment">//     unsafe { assume(i &lt; n) };</span>
+                    <span class="comment">//     i</span>
+                    <span class="comment">// })</span>
             }
         }
 

@@ -2348,6 +2348,11 @@
 <span id="2292">2292</span>
 <span id="2293">2293</span>
 <span id="2294">2294</span>
+<span id="2295">2295</span>
+<span id="2296">2296</span>
+<span id="2297">2297</span>
+<span id="2298">2298</span>
+<span id="2299">2299</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright 2012-2015 The Rust Project Developers. See the COPYRIGHT</span>
 <span class="comment">// file at the top-level directory of this distribution and at</span>
@@ -2935,15 +2940,15 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">iter_mut</span>(<span class="self">self</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over all contiguous windows of length</span>
-    <span class="doccomment">/// `size`. The windows overlap. If the slice is shorter than</span>
-    <span class="doccomment">/// `size`, the iterator returns no values.</span>
+    <span class="doccomment">/// 長さが `size` の連続したウィンドウ全てを列挙するイテレータを返します。</span>
+    <span class="doccomment">/// 互いに重複するウィンドウも列挙されます。</span>
+    <span class="doccomment">/// スライスが `size` より短い場合は、このイテレータは0個の値を返します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Panics</span>
+    <span class="doccomment">/// # パニック</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Panics if `size` is 0.</span>
+    <span class="doccomment">/// `size` が 0 のときパニックします。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let slice = [&#39;r&#39;, &#39;u&#39;, &#39;s&#39;, &#39;t&#39;];</span>
@@ -2954,7 +2959,7 @@
     <span class="doccomment">/// assert!(iter.next().is_none());</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If the slice is shorter than `size`:</span>
+    <span class="doccomment">/// スライスが `size` より短い場合:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let slice = [&#39;f&#39;, &#39;o&#39;, &#39;o&#39;];</span>
@@ -2967,19 +2972,20 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">windows</span>(<span class="self">self</span>, <span class="ident">size</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over `chunk_size` elements of the slice at a</span>
-    <span class="doccomment">/// time. The chunks are slices and do not overlap. If `chunk_size` does</span>
-    <span class="doccomment">/// not divide the length of the slice, then the last chunk will</span>
-    <span class="doccomment">/// not have length `chunk_size`.</span>
+    <span class="doccomment">/// このスライスを `chunk_size` 要素ごとのチャンクに区切り、</span>
+    <span class="doccomment">/// それらを列挙するイテレータを返します。</span>
+    <span class="doccomment">/// チャンク同士は重複しません。</span>
+    <span class="doccomment">/// `chunk_size` がスライスの長さを割り切らない場合は、</span>
+    <span class="doccomment">/// 最後に返されるチャンクの長さは `chunk_size` 未満になります。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`exact_chunks`] for a variant of this iterator that returns chunks</span>
-    <span class="doccomment">/// of always exactly `chunk_size` elements.</span>
+    <span class="doccomment">/// 常に `chunk_size` 個からなるチャンクのみを返す亜種については、</span>
+    <span class="doccomment">/// [`exact_chunks`] を参照してください。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Panics</span>
+    <span class="doccomment">/// # パニック</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Panics if `chunk_size` is 0.</span>
+    <span class="doccomment">/// `chunk_size` が 0 のときパニックします。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let slice = [&#39;l&#39;, &#39;o&#39;, &#39;r&#39;, &#39;e&#39;, &#39;m&#39;];</span>
@@ -2997,20 +3003,21 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">chunks</span>(<span class="self">self</span>, <span class="ident">chunk_size</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over `chunk_size` elements of the slice at a</span>
-    <span class="doccomment">/// time. The chunks are slices and do not overlap. If `chunk_size` does</span>
-    <span class="doccomment">/// not divide the length of the slice, then the last up to `chunk_size-1`</span>
-    <span class="doccomment">/// elements will be omitted.</span>
+    <span class="doccomment">/// このスライスを `chunk_size` 要素ごとのチャンクに区切り、</span>
+    <span class="doccomment">/// それらを列挙するイテレータを返します。</span>
+    <span class="doccomment">/// チャンク同士は重複しません。</span>
+    <span class="doccomment">/// `chunk_size` がスライスの長さを割り切らない場合は、</span>
+    <span class="doccomment">/// スライス末尾の最大 `chunk_size-1` 個の要素が無視されます。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Due to each chunk having exactly `chunk_size` elements, the compiler</span>
-    <span class="doccomment">/// can often optimize the resulting code better than in the case of</span>
-    <span class="doccomment">/// [`chunks`].</span>
+    <span class="doccomment">/// 全てのチャンクがちょうど `chunk_size` 個の要素を持つため、</span>
+    <span class="doccomment">/// このメソッドは [`chunks`]</span>
+    <span class="doccomment">/// よりも効率的なコードにコンパイルされる場合があります。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Panics</span>
+    <span class="doccomment">/// # パニック</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Panics if `chunk_size` is 0.</span>
+    <span class="doccomment">/// `chunk_size` が 0 のときパニックします。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// #![feature(exact_chunks)]</span>
@@ -3029,19 +3036,21 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">exact_chunks</span>(<span class="self">self</span>, <span class="ident">chunk_size</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over `chunk_size` elements of the slice at a time.</span>
-    <span class="doccomment">/// The chunks are mutable slices, and do not overlap. If `chunk_size` does</span>
-    <span class="doccomment">/// not divide the length of the slice, then the last chunk will not</span>
-    <span class="doccomment">/// have length `chunk_size`.</span>
+    <span class="doccomment">/// このスライスを `chunk_size` 要素ごとのチャンクに区切り、</span>
+    <span class="doccomment">/// それらを列挙するイテレータを返します。</span>
+    <span class="doccomment">/// チャンク同士は重複しません。</span>
+    <span class="doccomment">/// このメソッドが返すチャンクはミュータブルなスライスです。</span>
+    <span class="doccomment">/// `chunk_size` がスライスの長さを割り切らない場合は、</span>
+    <span class="doccomment">/// 最後に返されるチャンクの長さは `chunk_size` 未満になります。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// See [`exact_chunks_mut`] for a variant of this iterator that returns chunks</span>
-    <span class="doccomment">/// of always exactly `chunk_size` elements.</span>
+    <span class="doccomment">/// 常に `chunk_size` 個からなるチャンクのみを返す亜種については、</span>
+    <span class="doccomment">/// [`exact_chunks_mut`] を参照してください。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Panics</span>
+    <span class="doccomment">/// # パニック</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Panics if `chunk_size` is 0.</span>
+    <span class="doccomment">/// `chunk_size` が 0 のときパニックします。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let v = &amp;mut [0, 0, 0, 0, 0];</span>
@@ -3063,21 +3072,22 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">chunks_mut</span>(<span class="self">self</span>, <span class="ident">chunk_size</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over `chunk_size` elements of the slice at a time.</span>
-    <span class="doccomment">/// The chunks are mutable slices, and do not overlap. If `chunk_size` does</span>
-    <span class="doccomment">/// not divide the length of the slice, then the last up to `chunk_size-1`</span>
-    <span class="doccomment">/// elements will be omitted.</span>
+    <span class="doccomment">/// このスライスを `chunk_size` 要素ごとのチャンクに区切り、</span>
+    <span class="doccomment">/// それらを列挙するイテレータを返します。</span>
+    <span class="doccomment">/// チャンク同士は重複しません。</span>
+    <span class="doccomment">/// このメソッドが返すチャンクはミュータブルなスライスです。</span>
+    <span class="doccomment">/// `chunk_size` がスライスの長さを割り切らない場合は、</span>
+    <span class="doccomment">/// スライス末尾の最大 `chunk_size-1` 個の要素が無視されます。</span>
     <span class="doccomment">///</span>
+    <span class="doccomment">/// 全てのチャンクがちょうど `chunk_size` 個の要素を持つため、</span>
+    <span class="doccomment">/// このメソッドは [`chunks`]</span>
+    <span class="doccomment">/// よりも効率的なコードにコンパイルされる場合があります。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Due to each chunk having exactly `chunk_size` elements, the compiler</span>
-    <span class="doccomment">/// can often optimize the resulting code better than in the case of</span>
-    <span class="doccomment">/// [`chunks_mut`].</span>
+    <span class="doccomment">/// # パニック</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Panics</span>
+    <span class="doccomment">/// `chunk_size` が 0 のときパニックします。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Panics if `chunk_size` is 0.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// #![feature(exact_chunks)]</span>
