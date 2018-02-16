@@ -755,17 +755,18 @@ impl<T> [T] {
         core_slice::SliceExt::exact_chunks_mut(self, chunk_size)
     }
 
-    /// Divides one slice into two at an index.
+    /// 一つのスライスを指定されたインデックスで二つに分割します。
     ///
-    /// The first will contain all indices from `[0, mid)` (excluding
-    /// the index `mid` itself) and the second will contain all
-    /// indices from `[mid, len)` (excluding the index `len` itself).
+    /// 一つ目のスライスには `[0, mid)` (`mid` 自身は除く)
+    /// 内の全てのインデックスが含まれます。
+    /// 二つ目のスライスには `[mid, len)` (`len` 自身は除く)
+    /// 内の全てのインデックスが含まれます。
     ///
-    /// # Panics
+    /// # パニック
     ///
-    /// Panics if `mid > len`.
+    /// `mid > len` のときパニックします。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let v = [1, 2, 3, 4, 5, 6];
@@ -794,21 +795,23 @@ impl<T> [T] {
         core_slice::SliceExt::split_at(self, mid)
     }
 
-    /// Divides one mutable slice into two at an index.
+    /// 一つのミュータブルなスライスを
+    /// 指定されたインデックスで二つに分割します。
     ///
-    /// The first will contain all indices from `[0, mid)` (excluding
-    /// the index `mid` itself) and the second will contain all
-    /// indices from `[mid, len)` (excluding the index `len` itself).
+    /// 一つ目のスライスには `[0, mid)` (`mid` 自身は除く)
+    /// 内の全てのインデックスが含まれます。
+    /// 二つ目のスライスには `[mid, len)` (`len` 自身は除く)
+    /// 内の全てのインデックスが含まれます。
     ///
-    /// # Panics
+    /// # パニック
     ///
-    /// Panics if `mid > len`.
+    /// `mid > len` のときパニックします。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let mut v = [1, 0, 3, 0, 5, 6];
-    /// // scoped to restrict the lifetime of the borrows
+    /// // 借用のライフライムを制限するためにスコープを区切る
     /// {
     ///     let (left, right) = v.split_at_mut(2);
     ///     assert!(left == [1, 0]);
@@ -824,10 +827,11 @@ impl<T> [T] {
         core_slice::SliceExt::split_at_mut(self, mid)
     }
 
-    /// Returns an iterator over subslices separated by elements that match
-    /// `pred`. The matched element is not contained in the subslices.
+    /// `pred` にマッチする要素によって区切られた部分スライスを列挙する
+    /// イテレータを返します。
+    /// 述語にマッチした要素は列挙される部分スライスには含まれません。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let slice = [10, 40, 33, 20];
@@ -838,10 +842,10 @@ impl<T> [T] {
     /// assert!(iter.next().is_none());
     /// ```
     ///
-    /// If the first element is matched, an empty slice will be the first item
-    /// returned by the iterator. Similarly, if the last element in the slice
-    /// is matched, an empty slice will be the last item returned by the
-    /// iterator:
+    /// 述語が最初の要素にマッチした場合、
+    /// イテレータは最初に空のスライスを返します。
+    /// 同様に、述語が最後の要素にマッチした場合、
+    /// イテレータが最後に返す部分スライスは空のスライスになります:
     ///
     /// ```
     /// let slice = [10, 40, 33];
@@ -852,8 +856,8 @@ impl<T> [T] {
     /// assert!(iter.next().is_none());
     /// ```
     ///
-    /// If two matched elements are directly adjacent, an empty slice will be
-    /// present between them:
+    /// もし2つの隣接する要素がどちらも述語にマッチした場合、
+    /// その間に空のスライスが返されます。
     ///
     /// ```
     /// let slice = [10, 6, 33, 20];
@@ -872,10 +876,11 @@ impl<T> [T] {
         core_slice::SliceExt::split(self, pred)
     }
 
-    /// Returns an iterator over mutable subslices separated by elements that
-    /// match `pred`. The matched element is not contained in the subslices.
+    /// `pred` にマッチする要素によって区切られたミュータブルな
+    /// 部分スライスを列挙するイテレータを返します。
+    /// 述語にマッチした要素は列挙される部分スライスには含まれません。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let mut v = [10, 40, 30, 20, 60, 50];
@@ -893,11 +898,11 @@ impl<T> [T] {
         core_slice::SliceExt::split_mut(self, pred)
     }
 
-    /// Returns an iterator over subslices separated by elements that match
-    /// `pred`, starting at the end of the slice and working backwards.
-    /// The matched element is not contained in the subslices.
+    /// `pred` にマッチする要素によって区切られた部分スライスを、
+    /// スライスの最後から逆順に列挙するイテレータを返します。
+    /// 述語にマッチした要素は列挙される部分スライスには含まれません。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// #![feature(slice_rsplit)]
@@ -910,8 +915,8 @@ impl<T> [T] {
     /// assert_eq!(iter.next(), None);
     /// ```
     ///
-    /// As with `split()`, if the first or last element is matched, an empty
-    /// slice will be the first (or last) item returned by the iterator.
+    /// `split()` と同様、最初の要素や最後の要素が述語にマッチした場合、
+    /// イテレータが最後や最初に返す部分スライスは空のスライスになります。
     ///
     /// ```
     /// #![feature(slice_rsplit)]
@@ -932,11 +937,11 @@ impl<T> [T] {
         core_slice::SliceExt::rsplit(self, pred)
     }
 
-    /// Returns an iterator over mutable subslices separated by elements that
-    /// match `pred`, starting at the end of the slice and working
-    /// backwards. The matched element is not contained in the subslices.
+    /// `pred` にマッチする要素によって区切られたミュータブルな部分スライスを、
+    /// スライスの最後から逆順に列挙するイテレータを返します。
+    /// 述語にマッチした要素は列挙される部分スライスには含まれません。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// #![feature(slice_rsplit)]
@@ -959,16 +964,16 @@ impl<T> [T] {
         core_slice::SliceExt::rsplit_mut(self, pred)
     }
 
-    /// Returns an iterator over subslices separated by elements that match
-    /// `pred`, limited to returning at most `n` items. The matched element is
-    /// not contained in the subslices.
+    /// `pred` にマッチする要素によって区切られた部分スライドを、
+    /// 最大 `n` 個列挙するイテレータを返します。
+    /// 述語にマッチした要素は列挙される部分スライスには含まれません。
     ///
-    /// The last element returned, if any, will contain the remainder of the
-    /// slice.
+    /// 最後に列挙される部分スライス (もしあれば) には、
+    /// 残りの全ての要素が含まれます。
     ///
-    /// # Examples
+    /// # 例
     ///
-    /// Print the slice split once by numbers divisible by 3 (i.e. `[10, 40]`,
+    /// 3 で割り切れる要素で一回だけ区切ります (つまり、 `[10, 40]` と `[20, 60, 50]`):
     /// `[20, 60, 50]`):
     ///
     /// ```
@@ -986,14 +991,14 @@ impl<T> [T] {
         core_slice::SliceExt::splitn(self, n, pred)
     }
 
-    /// Returns an iterator over subslices separated by elements that match
-    /// `pred`, limited to returning at most `n` items. The matched element is
-    /// not contained in the subslices.
+    /// `pred` にマッチする要素によって区切られた部分スライドを、
+    /// 最大 `n` 個列挙するイテレータを返します。
+    /// 述語にマッチした要素は列挙される部分スライスには含まれません。
     ///
-    /// The last element returned, if any, will contain the remainder of the
-    /// slice.
+    /// 最後に列挙される部分スライス (もしあれば) には、
+    /// 残りの全ての要素が含まれます。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let mut v = [10, 40, 30, 20, 60, 50];
@@ -1011,18 +1016,18 @@ impl<T> [T] {
         core_slice::SliceExt::splitn_mut(self, n, pred)
     }
 
-    /// Returns an iterator over subslices separated by elements that match
-    /// `pred` limited to returning at most `n` items. This starts at the end of
-    /// the slice and works backwards.  The matched element is not contained in
-    /// the subslices.
+    /// `pred` にマッチする要素によって区切られた部分スライドを、
+    /// 最大 `n` 個列挙するイテレータを返します。
+    /// このスライスの最後からはじめて逆順に列挙します。
+    /// 述語にマッチした要素は列挙される部分スライスには含まれません。
     ///
-    /// The last element returned, if any, will contain the remainder of the
-    /// slice.
+    /// 最後に列挙される部分スライス (もしあれば) には、
+    /// 残りの全ての要素が含まれます。
     ///
-    /// # Examples
+    /// # 例
     ///
-    /// Print the slice split once, starting from the end, by numbers divisible
-    /// by 3 (i.e. `[50]`, `[10, 40, 30, 20]`):
+    /// 後ろからはじめて、3 で割り切れる要素で一回だけ区切ります
+    /// (つまり、 `[50]` と `[10, 40, 30, 20]`):
     ///
     /// ```
     /// let v = [10, 40, 30, 20, 60, 50];
@@ -1039,15 +1044,15 @@ impl<T> [T] {
         core_slice::SliceExt::rsplitn(self, n, pred)
     }
 
-    /// Returns an iterator over subslices separated by elements that match
-    /// `pred` limited to returning at most `n` items. This starts at the end of
-    /// the slice and works backwards. The matched element is not contained in
-    /// the subslices.
+    /// `pred` にマッチする要素によって区切られた部分スライドを、
+    /// 最大 `n` 個列挙するイテレータを返します。
+    /// このスライスの最後からはじめて逆順に列挙します。
+    /// 述語にマッチした要素は列挙される部分スライスには含まれません。
     ///
-    /// The last element returned, if any, will contain the remainder of the
-    /// slice.
+    /// 最後に列挙される部分スライス (もしあれば) には、
+    /// 残りの全ての要素が含まれます。
     ///
-    /// # Examples
+    /// # 例
     ///
     /// ```
     /// let mut s = [10, 40, 30, 20, 60, 50];
