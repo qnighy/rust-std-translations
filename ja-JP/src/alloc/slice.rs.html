@@ -2353,6 +2353,11 @@
 <span id="2297">2297</span>
 <span id="2298">2298</span>
 <span id="2299">2299</span>
+<span id="2300">2300</span>
+<span id="2301">2301</span>
+<span id="2302">2302</span>
+<span id="2303">2303</span>
+<span id="2304">2304</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright 2012-2015 The Rust Project Developers. See the COPYRIGHT</span>
 <span class="comment">// file at the top-level directory of this distribution and at</span>
@@ -3111,17 +3116,18 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">exact_chunks_mut</span>(<span class="self">self</span>, <span class="ident">chunk_size</span>)
     }
 
-    <span class="doccomment">/// Divides one slice into two at an index.</span>
+    <span class="doccomment">/// 一つのスライスを指定されたインデックスで二つに分割します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The first will contain all indices from `[0, mid)` (excluding</span>
-    <span class="doccomment">/// the index `mid` itself) and the second will contain all</span>
-    <span class="doccomment">/// indices from `[mid, len)` (excluding the index `len` itself).</span>
+    <span class="doccomment">/// 一つ目のスライスには `[0, mid)` (`mid` 自身は除く)</span>
+    <span class="doccomment">/// 内の全てのインデックスが含まれます。</span>
+    <span class="doccomment">/// 二つ目のスライスには `[mid, len)` (`len` 自身は除く)</span>
+    <span class="doccomment">/// 内の全てのインデックスが含まれます。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Panics</span>
+    <span class="doccomment">/// # パニック</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Panics if `mid &gt; len`.</span>
+    <span class="doccomment">/// `mid &gt; len` のときパニックします。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let v = [1, 2, 3, 4, 5, 6];</span>
@@ -3150,21 +3156,23 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">split_at</span>(<span class="self">self</span>, <span class="ident">mid</span>)
     }
 
-    <span class="doccomment">/// Divides one mutable slice into two at an index.</span>
+    <span class="doccomment">/// 一つのミュータブルなスライスを</span>
+    <span class="doccomment">/// 指定されたインデックスで二つに分割します。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The first will contain all indices from `[0, mid)` (excluding</span>
-    <span class="doccomment">/// the index `mid` itself) and the second will contain all</span>
-    <span class="doccomment">/// indices from `[mid, len)` (excluding the index `len` itself).</span>
+    <span class="doccomment">/// 一つ目のスライスには `[0, mid)` (`mid` 自身は除く)</span>
+    <span class="doccomment">/// 内の全てのインデックスが含まれます。</span>
+    <span class="doccomment">/// 二つ目のスライスには `[mid, len)` (`len` 自身は除く)</span>
+    <span class="doccomment">/// 内の全てのインデックスが含まれます。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Panics</span>
+    <span class="doccomment">/// # パニック</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Panics if `mid &gt; len`.</span>
+    <span class="doccomment">/// `mid &gt; len` のときパニックします。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let mut v = [1, 0, 3, 0, 5, 6];</span>
-    <span class="doccomment">/// // scoped to restrict the lifetime of the borrows</span>
+    <span class="doccomment">/// // 借用のライフライムを制限するためにスコープを区切る</span>
     <span class="doccomment">/// {</span>
     <span class="doccomment">///     let (left, right) = v.split_at_mut(2);</span>
     <span class="doccomment">///     assert!(left == [1, 0]);</span>
@@ -3180,10 +3188,11 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">split_at_mut</span>(<span class="self">self</span>, <span class="ident">mid</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over subslices separated by elements that match</span>
-    <span class="doccomment">/// `pred`. The matched element is not contained in the subslices.</span>
+    <span class="doccomment">/// `pred` にマッチする要素によって区切られた部分スライスを列挙する</span>
+    <span class="doccomment">/// イテレータを返します。</span>
+    <span class="doccomment">/// 述語にマッチした要素は列挙される部分スライスには含まれません。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let slice = [10, 40, 33, 20];</span>
@@ -3194,10 +3203,10 @@
     <span class="doccomment">/// assert!(iter.next().is_none());</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If the first element is matched, an empty slice will be the first item</span>
-    <span class="doccomment">/// returned by the iterator. Similarly, if the last element in the slice</span>
-    <span class="doccomment">/// is matched, an empty slice will be the last item returned by the</span>
-    <span class="doccomment">/// iterator:</span>
+    <span class="doccomment">/// 述語が最初の要素にマッチした場合、</span>
+    <span class="doccomment">/// イテレータは最初に空のスライスを返します。</span>
+    <span class="doccomment">/// 同様に、述語が最後の要素にマッチした場合、</span>
+    <span class="doccomment">/// イテレータが最後に返す部分スライスは空のスライスになります:</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let slice = [10, 40, 33];</span>
@@ -3208,8 +3217,8 @@
     <span class="doccomment">/// assert!(iter.next().is_none());</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// If two matched elements are directly adjacent, an empty slice will be</span>
-    <span class="doccomment">/// present between them:</span>
+    <span class="doccomment">/// もし2つの隣接する要素がどちらも述語にマッチした場合、</span>
+    <span class="doccomment">/// その間に空のスライスが返されます。</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let slice = [10, 6, 33, 20];</span>
@@ -3228,10 +3237,11 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">split</span>(<span class="self">self</span>, <span class="ident">pred</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over mutable subslices separated by elements that</span>
-    <span class="doccomment">/// match `pred`. The matched element is not contained in the subslices.</span>
+    <span class="doccomment">/// `pred` にマッチする要素によって区切られたミュータブルな</span>
+    <span class="doccomment">/// 部分スライスを列挙するイテレータを返します。</span>
+    <span class="doccomment">/// 述語にマッチした要素は列挙される部分スライスには含まれません。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let mut v = [10, 40, 30, 20, 60, 50];</span>
@@ -3249,11 +3259,11 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">split_mut</span>(<span class="self">self</span>, <span class="ident">pred</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over subslices separated by elements that match</span>
-    <span class="doccomment">/// `pred`, starting at the end of the slice and working backwards.</span>
-    <span class="doccomment">/// The matched element is not contained in the subslices.</span>
+    <span class="doccomment">/// `pred` にマッチする要素によって区切られた部分スライスを、</span>
+    <span class="doccomment">/// スライスの最後から逆順に列挙するイテレータを返します。</span>
+    <span class="doccomment">/// 述語にマッチした要素は列挙される部分スライスには含まれません。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// #![feature(slice_rsplit)]</span>
@@ -3266,8 +3276,8 @@
     <span class="doccomment">/// assert_eq!(iter.next(), None);</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// As with `split()`, if the first or last element is matched, an empty</span>
-    <span class="doccomment">/// slice will be the first (or last) item returned by the iterator.</span>
+    <span class="doccomment">/// `split()` と同様、最初の要素や最後の要素が述語にマッチした場合、</span>
+    <span class="doccomment">/// イテレータが最後や最初に返す部分スライスは空のスライスになります。</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// #![feature(slice_rsplit)]</span>
@@ -3288,11 +3298,11 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">rsplit</span>(<span class="self">self</span>, <span class="ident">pred</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over mutable subslices separated by elements that</span>
-    <span class="doccomment">/// match `pred`, starting at the end of the slice and working</span>
-    <span class="doccomment">/// backwards. The matched element is not contained in the subslices.</span>
+    <span class="doccomment">/// `pred` にマッチする要素によって区切られたミュータブルな部分スライスを、</span>
+    <span class="doccomment">/// スライスの最後から逆順に列挙するイテレータを返します。</span>
+    <span class="doccomment">/// 述語にマッチした要素は列挙される部分スライスには含まれません。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// #![feature(slice_rsplit)]</span>
@@ -3315,16 +3325,16 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">rsplit_mut</span>(<span class="self">self</span>, <span class="ident">pred</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over subslices separated by elements that match</span>
-    <span class="doccomment">/// `pred`, limited to returning at most `n` items. The matched element is</span>
-    <span class="doccomment">/// not contained in the subslices.</span>
+    <span class="doccomment">/// `pred` にマッチする要素によって区切られた部分スライドを、</span>
+    <span class="doccomment">/// 最大 `n` 個列挙するイテレータを返します。</span>
+    <span class="doccomment">/// 述語にマッチした要素は列挙される部分スライスには含まれません。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The last element returned, if any, will contain the remainder of the</span>
-    <span class="doccomment">/// slice.</span>
+    <span class="doccomment">/// 最後に列挙される部分スライス (もしあれば) には、</span>
+    <span class="doccomment">/// 残りの全ての要素が含まれます。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Print the slice split once by numbers divisible by 3 (i.e. `[10, 40]`,</span>
+    <span class="doccomment">/// 3 で割り切れる要素で一回だけ区切ります (つまり、 `[10, 40]` と `[20, 60, 50]`):</span>
     <span class="doccomment">/// `[20, 60, 50]`):</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
@@ -3342,14 +3352,14 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">splitn</span>(<span class="self">self</span>, <span class="ident">n</span>, <span class="ident">pred</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over subslices separated by elements that match</span>
-    <span class="doccomment">/// `pred`, limited to returning at most `n` items. The matched element is</span>
-    <span class="doccomment">/// not contained in the subslices.</span>
+    <span class="doccomment">/// `pred` にマッチする要素によって区切られた部分スライドを、</span>
+    <span class="doccomment">/// 最大 `n` 個列挙するイテレータを返します。</span>
+    <span class="doccomment">/// 述語にマッチした要素は列挙される部分スライスには含まれません。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The last element returned, if any, will contain the remainder of the</span>
-    <span class="doccomment">/// slice.</span>
+    <span class="doccomment">/// 最後に列挙される部分スライス (もしあれば) には、</span>
+    <span class="doccomment">/// 残りの全ての要素が含まれます。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let mut v = [10, 40, 30, 20, 60, 50];</span>
@@ -3367,18 +3377,18 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">splitn_mut</span>(<span class="self">self</span>, <span class="ident">n</span>, <span class="ident">pred</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over subslices separated by elements that match</span>
-    <span class="doccomment">/// `pred` limited to returning at most `n` items. This starts at the end of</span>
-    <span class="doccomment">/// the slice and works backwards.  The matched element is not contained in</span>
-    <span class="doccomment">/// the subslices.</span>
+    <span class="doccomment">/// `pred` にマッチする要素によって区切られた部分スライドを、</span>
+    <span class="doccomment">/// 最大 `n` 個列挙するイテレータを返します。</span>
+    <span class="doccomment">/// このスライスの最後からはじめて逆順に列挙します。</span>
+    <span class="doccomment">/// 述語にマッチした要素は列挙される部分スライスには含まれません。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The last element returned, if any, will contain the remainder of the</span>
-    <span class="doccomment">/// slice.</span>
+    <span class="doccomment">/// 最後に列挙される部分スライス (もしあれば) には、</span>
+    <span class="doccomment">/// 残りの全ての要素が含まれます。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Print the slice split once, starting from the end, by numbers divisible</span>
-    <span class="doccomment">/// by 3 (i.e. `[50]`, `[10, 40, 30, 20]`):</span>
+    <span class="doccomment">/// 後ろからはじめて、3 で割り切れる要素で一回だけ区切ります</span>
+    <span class="doccomment">/// (つまり、 `[50]` と `[10, 40, 30, 20]`):</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let v = [10, 40, 30, 20, 60, 50];</span>
@@ -3395,15 +3405,15 @@
         <span class="ident">core_slice</span>::<span class="ident">SliceExt</span>::<span class="ident">rsplitn</span>(<span class="self">self</span>, <span class="ident">n</span>, <span class="ident">pred</span>)
     }
 
-    <span class="doccomment">/// Returns an iterator over subslices separated by elements that match</span>
-    <span class="doccomment">/// `pred` limited to returning at most `n` items. This starts at the end of</span>
-    <span class="doccomment">/// the slice and works backwards. The matched element is not contained in</span>
-    <span class="doccomment">/// the subslices.</span>
+    <span class="doccomment">/// `pred` にマッチする要素によって区切られた部分スライドを、</span>
+    <span class="doccomment">/// 最大 `n` 個列挙するイテレータを返します。</span>
+    <span class="doccomment">/// このスライスの最後からはじめて逆順に列挙します。</span>
+    <span class="doccomment">/// 述語にマッチした要素は列挙される部分スライスには含まれません。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// The last element returned, if any, will contain the remainder of the</span>
-    <span class="doccomment">/// slice.</span>
+    <span class="doccomment">/// 最後に列挙される部分スライス (もしあれば) には、</span>
+    <span class="doccomment">/// 残りの全ての要素が含まれます。</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// # 例</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">/// let mut s = [10, 40, 30, 20, 60, 50];</span>
